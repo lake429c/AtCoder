@@ -12,22 +12,12 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
 
-#define MOD 1000000007
-lint ncr(int n, int r){
-  lint result=1;
-  int div = 1;
-  FOR(i, r+1, n+1){
-    result *= i;
-    result /= div;
-    result = result % MOD;
-    if(div < n-r) div++;
-    else div = 1;
-  }
-  return result;
-}
-
-
 int main()
 {
+  int n, a, b;
+  cin >> n >> a >> b;
+
+  if(n*a > b) cout << b << endl;
+  else cout << n*a << endl;
   return 0;
 }

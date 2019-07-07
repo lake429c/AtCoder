@@ -13,28 +13,19 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define IREP(i, n) IFOR(i,0,n)
 
 #define MOD 1000000007
-
 lint ncr(int n, int r){
-  if(r<n/2.0) r = n-r;
-  vector<int> div(n-r+1,1);
-  FOR(i, 1, n-r+1) div[i]=i;
   lint result=1;
-  IFOR(i, r+1, n+1){
-    int tmp=i;
-    IREP(j,n-r+1){
-      if(div[j]!=1 && tmp%div[j]==0){
-        tmp/=div[j];
-        div[j]=1;
-      }
+  int div = 1;
+  FOR(i, r+1, n+1){
+    result *= i;
+    if(div < n-r+1 && result%div == 0){
+      result /= div;
+      div++;
     }
-    lint prod = result;
-    result*=tmp;
-    result = result%MOD;
-    //if(result/tmp != prod) return -1;
+    result = result % MOD;
   }
   return result;
 }
-
 
 int main()
 {
@@ -48,7 +39,9 @@ int main()
   int d, l;
   cin >> d >> l;
 
-  lint result=((ncr(x*y,d)*(r-x+1))%MOD*(c-y+1))%MOD;
+  lint result=ncr(x*y,d);
+  result = (result*(r-x+1))%MOD;
+  result = (result*(c-y+1))%MOD;
   cout << result << endl;
   return 0;
 }

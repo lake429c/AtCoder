@@ -12,22 +12,24 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
 
-#define MOD 1000000007
-lint ncr(int n, int r){
-  lint result=1;
-  int div = 1;
-  FOR(i, r+1, n+1){
-    result *= i;
-    result /= div;
-    result = result % MOD;
-    if(div < n-r) div++;
-    else div = 1;
-  }
-  return result;
-}
-
-
 int main()
 {
+  lint l, r;
+  cin >> l >> r;
+
+  lint min = INT_MAX;
+  if(r-l>=2019){
+    //2019個にいっこかならず2019の倍数が存在する
+    min = 0;
+  }else{
+    FOR(i,l,r){
+      FOR(j,i+1,r+1){
+        lint tmp = ((i%2019)*(j%2019))%2019;
+        if(tmp < min) min = tmp;
+      }
+    }
+  }
+
+  cout << min << endl;
   return 0;
 }
