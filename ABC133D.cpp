@@ -16,45 +16,43 @@ int main()
 {
   lint n;
   cin >> n;
-  vector<lint> a(n);
-  REP(i,n) cin >> a[i];
-
-  //山iに降った雨の量（偶数）＝ダムiとダムi-1に等量ずつ注ぐ
-  vector<lint> rain(n,0);
+  vector<lint> dam(n);
+  REP(i,n) cin >> dam[i];
 
   //まず最も水の少ないダムを探す
   lint min = INT_MAX, min_ele = -1;
-  REP(i,n){
-    if(min > a[i]){
-      min = a[i];
+  REP(i,n-1){
+    if(min > dam[i]){
+      min = dam[i];
       min_ele = i;
     }
     if(min == 0) break;
   }
-  REP(i,min+1){
-    vector<lint> tmp(n,0);
-    tmp[min_ele] = a[min_ele];
-    tmp[min_ele] -= i;
-    if(min_ele != n){
-      tmp[min_ele+1] = a[min_ele+1];
-      tmp[min_ele+1] -= i;
-      rain[min_ele+1] = i*2;
-      FOR(j,min_ele+1,n){
-        //tmp[j] -= tmp[j];
-        tmp[j+1] = a[j+1];
-        tmp[j+1] -= tmp[j];
-        if(tmp[j+1] < 0) break;
-        rain[j+1] = tmp[j]*2;
-      }
+
+  vector<lint> rain(n,0);
+  //水量最小のダムの水の分け方をすべて試していく
+  REP(i,dam[min_ele]+1){
+    vector<lint> tmp_dam(n,0);
+    tmp_dam[min_ele] = dam[min_ele];
+    if(min_ele != 0) tmp_dam[min_ele-1] += i;
+    else tmp_dam[n-1] += i;
+    rain[min_ele] = i * 2;
+    tmp_dam[min_ele+1] += dam[min_ele] - i;
+    rain[min_ele+1] = (dam[min_ele] - i) * 2;
+    //水量最小のダムから時計回りに見ていく
+    FOR(j,min_ele+1,n-1){
+      tmp_dam[j+1] += dam[j] - tmp_dam[j];
+      rain[j+1] = (dam[j] - tmp_dam[j]) * 2;
+      tmp_dam[j] += dam[j] - tmp_dam[j];
     }
-    IFOR(j,1,min_ele){
-      tmp[j] = a[j];
-      tmp[j] -= tmp[j+1];
-      if(tmp[j+1] < 0) break;
-      rain[j+1] = tmp[j+1];
+    //反時計回り
+    IFOR(j,0,min_ele-1){
+      if(j != 0) tmp_dam[j-1] += dam[j] - tmp_dam[j];
+      else tmp_dam[n-1] += dam[j] - tmp_dam[j];
+      rain[j] = (dam[j] - tmp_dam[j]) * 2;
+      tmp_dam[j] += dam[j] - tmp_dam[j];
     }
-    rain[1] = tmp[1]*2;
-    if(tmp[1] == tmp[n] && rain[1]/2 == tmp[n]) break;
+    if(tmp_dam[n-1] == dam[n-1]) break;
   }
 
   REP(i,n) cout << rain[i] << " ";
