@@ -29,6 +29,7 @@ int main()
   std::vector<plint> koma(q);
   REP(i,q) cin >> koma[i].first >> koma[i].second;  //L,R
 
+  std::vector<lint> mp_sum(h*w, -1);
   REP(tr,q){
     //駒を探す
     lint x, y;
@@ -38,15 +39,15 @@ int main()
     lint mp_sum = 0;
     while(1){
       //終了条件
-      if(my_num == koma[tr].second){
-        cout << mp_sum << endl;
+      if(mp_sum[koma[tr].second] != -1){
+        cout << mp_sum[koma[tr].second] << endl;
         break;
       }
       //駒の移動
       lint i, j;
       i = search_num[my_num+d-1].first;
       j = search_num[my_num+d-1].second;
-      mp_sum += abs(x-i)+abs(y-j);
+      mp_sum[my_num] = abs(x-i)+abs(y-j);
       x = i;
       y = j;
       my_num += d;
