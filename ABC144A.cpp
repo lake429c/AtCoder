@@ -11,9 +11,15 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i>=i##_begin_;i--)
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
-const lint mod=1e9+7;
 
 int main()
 {
+  int a,b;
+  cin >> a >> b;
+  int result = -1;
+  if(a <= 9 && b <= 9){
+    result = a*b;
+  }
+  cout << result << "\n";
   return 0;
 }

@@ -15,5 +15,9 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int r;
+  cin >> r;
+
+  cout << r*r << "\n";
   return 0;
 }

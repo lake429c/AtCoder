@@ -15,5 +15,23 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int n;
+  cin >> n;
+  std::vector<std::vector<float>> dist(n,std::vector<float>(2));
+  REP(i,n) cin >> dist[i][0] >> dist[i][1];
+
+  std::vector<std::vector<float>> v1(n, std::vector<float>(n,0));
+  for(int i=0;i<n;i++){
+    for(int j=0;j<n;j++){
+      v1[i][j] = sqrt(pow(dist[i][0]-dist[j][0],2)+pow(dist[i][1]-dist[j][1],2));
+    }
+  }
+  std::vector<std::vector<float>> v2 = v1;
+  for(int i=1;i<n;i++){
+    for(int j=1;j<n;j++){
+      if(i==j) continue;
+      v2[i][j] += v2[0][i];
+    }
+  }
   return 0;
 }

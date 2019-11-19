@@ -11,9 +11,17 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i>=i##_begin_;i--)
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
-const lint mod=1e9+7;
 
 int main()
 {
+  lint n;
+  cin >> n;
+
+  std::vector<lint> x;
+  for(int i = 1;i <= sqrt(n);i++){
+    if(n%i == 0) x.push_back(i+(n/i)-2);
+  };
+
+  cout << *min_element(ALL(x)) << "\n";
   return 0;
 }

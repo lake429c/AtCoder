@@ -11,9 +11,23 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i>=i##_begin_;i--)
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
-const lint mod=1e9+7;
 
 int main()
 {
+  int n;
+  cin >> n;
+  std::vector<int> d(n);
+  REP(i,n) cin >> d[i];
+
+  lint cnt = 0;
+  for(int i=0;i<n-1;i++){
+    lint tmp = 0;
+    for(int j=i+1;j<n;j++){
+      tmp += d[j];
+    }
+    cnt += d[i]*tmp;
+  }
+
+  cout << cnt << "\n";
   return 0;
 }

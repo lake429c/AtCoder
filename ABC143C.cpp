@@ -11,9 +11,19 @@ struct fast_ios { fast_ios(){ cin.tie(0); ios::sync_with_stdio(false); cout << f
 #define IFOR(i, begin, end) for(int i=(end)-1,i##_begin_=(begin);i>=i##_begin_;i--)
 #define REP(i, n) FOR(i,0,n)
 #define IREP(i, n) IFOR(i,0,n)
-const lint mod=1e9+7;
 
 int main()
 {
+  lint n;
+  cin >> n;
+  string s;
+  cin >> s;
+
+  std::vector<char> slimes(1, s[0]);
+  for(int i=1;i<n;i++){
+    if(s[i] != slimes[slimes.size()-1]) slimes.push_back(s[i]);
+  }
+
+  cout << slimes.size() << "\n";
   return 0;
 }

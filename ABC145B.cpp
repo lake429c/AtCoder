@@ -15,5 +15,21 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int n;
+  cin >> n;
+  string s;
+  cin >> s;
+
+  bool flg = true;
+  for(int i=0;i<n/2;i++){
+    if(s[i] != s[i+n/2]){
+      flg = false;
+      break;
+    }
+  }
+
+  if(n%2==1) cout << "No" << "\n";
+  else if(flg==true) cout << "Yes" << "\n";
+  else cout << "No" << "\n";
   return 0;
 }
