@@ -6,27 +6,36 @@ int main()
     int n,sum;
     cin >> n >> sum;
     // 計算
-    int x=0,y=0,z=0,res,flag=0;
-    for(z=0;z<=n;z++){
-      res = z*1000;
-      if(res <= sum){
-        for(y=0;y<=n-z;y++){
-          res = z*1000+y*5000;
-          if(res <= sum){
-            for(x=0;x<=n-z-y;x++){
-              res = z*1000+y*5000+x*10000;
-              if(res == sum && x+y+z == n) {
-                flag = 1;
-                break;
-              }
-            }
-          }
-          if(flag == 1) break;
-        }
+    int x=0,y=0,z=0;
+    bool flg=false;
+    x = sum/10000;
+    sum -= x*10000;
+    y = sum/5000;
+    sum -= y*5000;
+    z = sum/1000;
+    sum -= z*1000;
+    if(x+y+z > n) flg = true;
+    // +1 +5 +9  +4
+    while(x+y+z < n){
+      if(n-x-y-z <= 1 && x > 0){
+        x--;
+        y += 2;
+      }else if(n-x-y-z <= 4 && y > 0){
+        y--;
+        z += 5;
+      }else if(n-x-y-z <= 5 && x > 0){
+        x--;
+        y++;
+        z += 5;
+      }else if(n-x-y-z <= 9 && x > 0){
+        x--;
+        y += 10;
+      }else{
+
       }
-      if(flag == 1) break;
+      if(x+y+z > n) flg = true;
     }
-    if(10000*x+5000*y+1000*z != sum){
+    if(flg || sum != 0){
       x = -1;
       y = -1;
       z = -1;
