@@ -15,6 +15,24 @@ const lint mod=1e9+7;
 
 int main()
 {
+  lint n, m;
+  cin >> n >> m;
+  vector<plint> war(m);
+  REP(i,m) cin >> war[i].first >> war[i].second;
 
+
+  lint cnt = 0;
+
+  sort(war.begin(),war.end(),[](const plint &alpha,const plint &beta){return alpha.second < beta.second;});
+
+  lint x = -1;
+  REP(i,m){
+    if(x < war[i].first-1){
+      x = war[i].second-2;
+      cnt++;
+    }
+  }
+
+  cout << cnt << "\n";
   return 0;
 }
