@@ -15,26 +15,33 @@ const lint mod=1e9+7;
 
 int main()
 {
-  lint n, m;
-  cin >> n >> m;
-  vector<plint> war(m);
-  REP(i,m) cin >> war[i].first >> war[i].second;
+  lint n, k;
+  cin >> n >> k;
 
-
+  // ありうる和の数
   lint cnt = 0;
-
-  // 番号が大きいほうの島で昇順ソート
-  sort(war.begin(),war.end(),[](const plint &alpha,const plint &beta){return alpha.second < beta.second;});
-
-  // 直前の橋の取り壊しで要望が満たされているならなにもしない
-  lint x = -1;
-  REP(i,m){
-    if(x < war[i].first-1){
-      x = war[i].second-2;
-      cnt++;
-    }
+  // k個の数を足したときの最も大きい数
+  lint sum_up = 0;
+  IFOR(i,n+1-k,n+1){
+    sum_up += i;
+    sum_up %= mod;
   }
-
-  cout << cnt << "\n";
+  // k個の数を足したときの最も小さい数
+  lint sum_low = 0;
+  FOR(i,0,k){
+    sum_low += i;
+    sum_low %= mod;
+  }
+  cnt += sum_up-sum_low+1;
+  // kをだんだん大きくしていく
+  while(k != n+1){
+    k++;
+    sum_up += n+1-k;
+    sum_up %= mod;
+    sum_low += k-1;
+    sum_low %= mod;
+    cnt += sum_up-sum_low+1;
+  }
+  cout << (cnt+1)%mod << "\n";
   return 0;
 }

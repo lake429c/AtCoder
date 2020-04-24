@@ -15,26 +15,9 @@ const lint mod=1e9+7;
 
 int main()
 {
-  lint n, m;
-  cin >> n >> m;
-  vector<plint> war(m);
-  REP(i,m) cin >> war[i].first >> war[i].second;
+  int r;
+  cin >> r;
 
-
-  lint cnt = 0;
-
-  // 番号が大きいほうの島で昇順ソート
-  sort(war.begin(),war.end(),[](const plint &alpha,const plint &beta){return alpha.second < beta.second;});
-
-  // 直前の橋の取り壊しで要望が満たされているならなにもしない
-  lint x = -1;
-  REP(i,m){
-    if(x < war[i].first-1){
-      x = war[i].second-2;
-      cnt++;
-    }
-  }
-
-  cout << cnt << "\n";
+  cout << 2*M_PI*r << "\n";
   return 0;
 }

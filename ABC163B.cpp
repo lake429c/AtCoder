@@ -17,24 +17,17 @@ int main()
 {
   lint n, m;
   cin >> n >> m;
-  vector<plint> war(m);
-  REP(i,m) cin >> war[i].first >> war[i].second;
+  vector<int> a(m);
+  REP(i,m) cin >> a[i];
 
-
-  lint cnt = 0;
-
-  // 番号が大きいほうの島で昇順ソート
-  sort(war.begin(),war.end(),[](const plint &alpha,const plint &beta){return alpha.second < beta.second;});
-
-  // 直前の橋の取り壊しで要望が満たされているならなにもしない
-  lint x = -1;
+  lint sum = 0;
   REP(i,m){
-    if(x < war[i].first-1){
-      x = war[i].second-2;
-      cnt++;
-    }
+    sum += a[i];
   }
+  lint res;
+  if(sum > n) res = -1;
+  else res = n-sum;
 
-  cout << cnt << "\n";
+  cout << res << "\n";
   return 0;
 }
