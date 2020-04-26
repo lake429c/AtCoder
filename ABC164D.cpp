@@ -16,5 +16,22 @@ const lint mod=1e9+7;
 
 int main()
 {
+  string s;
+  cin >> s;
+
+  lint cnt = 0;
+  FOR(i,0,s.size()-3){
+    FOR(j,i+4,s.size()+1){
+      string tmp = s.substr(i, j-i);
+      std::istringstream ss;
+      ss = std::istringstream(tmp);
+      lint num;
+      ss >> num;
+      if(num%2019 == 0) cnt++;
+      //cout << num << "\n";
+    }
+  }
+
+  cout << cnt << "\n";
   return 0;
 }

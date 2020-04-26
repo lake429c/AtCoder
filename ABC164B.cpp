@@ -16,5 +16,23 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int a, b, c, d;
+  cin >> a >> b >> c >> d;
+
+  string res;
+  while(1){
+    c -= b;
+    if(c < 1){
+      res = "Yes";
+      break;
+    }
+    a -= d;
+    if(a < 1){
+      res = "No";
+      break;
+    }
+  }
+
+  cout << res << "\n";
   return 0;
 }

@@ -16,5 +16,19 @@ const lint mod=1e9+7;
 
 int main()
 {
+  lint n;
+  cin >> n;
+  std::vector<string> s(n);
+  REP(i,n) cin >> s[i];
+
+  // 辞書順ソート
+  sort(ALL(s));
+  //重複を飛ばして数える
+  lint cnt = 0;
+  REP(i,n-1){
+    if(s[i] != s[i+1]) cnt++;
+  }
+
+  cout << cnt+1 << "\n";
   return 0;
 }

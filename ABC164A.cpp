@@ -16,5 +16,13 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int s, w;
+  cin >> s >> w;
+
+  string res;
+  if(w >= s) res = "unsafe";
+  else res = "safe";
+
+  cout << res << "\n";
   return 0;
 }

@@ -15,5 +15,14 @@ const lint mod=1e9+7;
 
 int main()
 {
+  lint x, y;
+  cin >> x >> y;
+  lint num = x, cnt = 0;
+  while(num <= y){
+    cnt++;
+    num *= 2;
+  }
+
+  cout << cnt << "\n";
   return 0;
 }
