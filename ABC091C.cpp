@@ -18,38 +18,27 @@ int main()
 {
   int n;
   cin >> n;
-  // 赤点の原点からの距離
   std::vector<pint> red(n);
   REP(i,n) cin >> red[i].first >> red[i].second;
-  // 青点の原点からの距離
   std::vector<pint> blue(n);
   REP(i,n) cin >> blue[i].first >> blue[i].second;
 
-  // 昇順ソート
-  sort(red.begin(),red.end(),[](const pint &alpha,const pint &beta){return alpha.first < beta.first;});
+  // y座標で降順ソート
+  sort(red.begin(),red.end(),[](const pint &alpha,const pint &beta){return alpha.second > beta.second;});
+  // x座標で昇順ソート
   sort(blue.begin(),blue.end(),[](const pint &alpha,const pint &beta){return alpha.first < beta.first;});
-  int cnt1 = 0, indR = 0, indB = 0;
-  while(indB < blue.size()){
-    if(red[indR].first < blue[indB].first && red[indR].second < blue[indB].second){
-      cnt1++;
-      indR++;
+  lint cnt = 0;
+  REP(i,n){
+    REP(j,red.size()){
+      // 青点よりx,y座標が小さい赤点の中でy座標最大の物を選ぶ
+      if(red[j].first < blue[i].first && red[j].second < blue[i].second){
+        red.erase(red.begin()+j);
+        cnt++;
+        break;
+      }
     }
-    indB++;
-  }
-  // 昇順ソート
-  sort(red.begin(),red.end(),[](const pint &alpha,const pint &beta){return alpha.second < beta.second;});
-  sort(blue.begin(),blue.end(),[](const pint &alpha,const pint &beta){return alpha.second < beta.second;});
-  int cnt2 = 0;
-  indR = 0, indB = 0;
-  while(indB < blue.size()){
-    if(red[indR].first < blue[indB].first && red[indR].second < blue[indB].second){
-      cnt2++;
-      indR++;
-    }
-    indB++;
   }
 
-  if(cnt1 > cnt2) cout << cnt1 << "\n";
-  else cout << cnt2 << "\n";
+  cout << cnt << "\n";
   return 0;
 }
