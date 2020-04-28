@@ -16,6 +16,12 @@ const lint mod=1e9+7;
 
 int main()
 {
- 
+  string s, t;
+  cin >> s;
+  cin >> t;
+
+  reverse(ALL(t));
+
+  cout << ((s == t) ? "YES" : "NO") << "\n";
   return 0;
 }

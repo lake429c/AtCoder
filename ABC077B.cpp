@@ -16,6 +16,14 @@ const lint mod=1e9+7;
 
 int main()
 {
- 
+  lint n;
+  cin >> n;
+
+  lint res = 0;
+  while(pow(res+1,2) <= n){
+    res++;
+  }
+
+  cout << res*res << "\n";
   return 0;
 }
