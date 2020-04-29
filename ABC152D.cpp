@@ -20,9 +20,32 @@ int r_int(int a, int b){
 }
 const lint mod=1e9+7;
 
-
+// 最上位桁を求める
+int digit_upper(lint num){
+  while(num > 9) {
+    num = num / 10;
+  }
+  return num;
+}
 
 int main()
 {
+  lint n;
+  cin >> n;
+
+  vector<vector<int>> c(10,vector<int>(10,0));
+  for(lint i=1;i<=n;i++){
+    int a = digit_upper(i), b = i%10;
+    c[a][b]++;
+  }
+
+  lint sum = 0;
+  REP(i,10){
+    REP(j,10){
+      sum += c[i][j]*c[j][i];
+    }
+  }
+
+  cout << sum << "\n";
   return 0;
 }

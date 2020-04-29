@@ -19,19 +19,24 @@ int main()
   string s;
   cin >> s;
 
-  lint cnt = 0;
-  FOR(i,0,s.size()-3){
-    FOR(j,i+4,s.size()+1){
-      string tmp = s.substr(i, j-i);
-      std::istringstream ss;
-      ss = std::istringstream(tmp);
-      lint num;
-      ss >> num;
-      if(num%2019 == 0) cnt++;
-      //cout << num << "\n";
-    }
+  map<int, set<int>> mods;
+  mods[0].insert(-1);
+  reverse(ALL(s));
+  lint num = 0;
+  int keta = 1;
+  REP(i,s.size()){
+    int x = s[i]-'0';
+    num = (num+x*keta)%2019;
+    keta = keta*10%2019;
+    //cout << num << endl;
+    mods[num].insert(i);
   }
 
-  cout << cnt << "\n";
+  lint sum = 0;
+  for(auto p : mods){
+    sum += p.second.size()*(p.second.size()-1)/2;
+  }
+
+  cout << sum << "\n";
   return 0;
 }

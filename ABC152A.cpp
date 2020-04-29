@@ -24,5 +24,9 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int n, m;
+  cin >> n >> m;
+
+  cout << (n==m ? "Yes" : "No") << "\n";
   return 0;
 }

@@ -24,5 +24,13 @@ const lint mod=1e9+7;
 
 int main()
 {
+  int a, b;
+  cin >> a >> b;
+
+  string x, y;
+  x.append(b,(char)(a+(int)'0'));
+  y.append(a,(char)(b+(int)'0'));
+
+  cout << (x < y ? x : y) << "\n";
   return 0;
 }

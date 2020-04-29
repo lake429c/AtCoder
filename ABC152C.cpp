@@ -24,5 +24,19 @@ const lint mod=1e9+7;
 
 int main()
 {
+  lint n;
+  cin >> n;
+  vector<lint> p(n);
+  REP(i,n) cin >> p[i];
+
+  lint min = n, cnt = 0;
+  REP(i,n){
+    if(min >= p[i]){
+      cnt++;
+      min = p[i];
+    }
+  }
+
+  cout << cnt << "\n";
   return 0;
 }

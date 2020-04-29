@@ -22,18 +22,17 @@ int main()
   vector<int> dist(k);
   queue<lint> que;
   que.push(1);
-  while(que.front() != 0){
-    //cout << dist[que.front()] << "\n";
-    reached[que.front()] = true;
-    vector<lint> next;
-    if(!reached[(que.front()+1)%k]) next.push_back((que.front()+1)%k);
-    else if(dist[(que.front()+1)%k] > dist[que.front()]+1) dist[(que.front()+1)%k] = dist[que.front()]+1;
-    if(!reached[(que.front()*10)%k]) next.push_back((que.front()*10)%k);
-    else if(dist[(que.front()*10)%k] > dist[que.front()]+1) dist[(que.front()*10)%k] = dist[que.front()]+1;
-    REP(i,next.size()){
-      que.push(next[i]);
-      dist[next[i]] = dist[que.front()]+1;
-    }
+  while(que.size() != 0){
+    lint i = que.front();
+    reached[i] = true;
+    if(!reached[(i+1)%k]){
+      que.push((i+1)%k);
+      dist[(i+1)%k] = dist[i]+1;
+    }else if(dist[(i+1)%k] > dist[i]+1) dist[(i+1)%k] = dist[i]+1;
+    if(!reached[(i*10)%k]){
+      que.push((i*10)%k);
+      dist[(i*10)%k] = dist[i]+1;
+    }else if(dist[(i*10)%k] > dist[i]+1) dist[(i*10)%k] = dist[i]+1;
     que.pop();
   }
 
