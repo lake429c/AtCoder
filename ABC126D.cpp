@@ -20,7 +20,38 @@ int r_int(int a, int b){
 }
 const lint mod=1e9+7;
 
+lint n;
+vector<vector<plint>> cnct;
+vector<int> seen;
+
+void dfs(lint node, int color){
+  seen[node] = color;
+  for(plint next : cnct[node]){
+    // 隣接していて，かつ未探索ノードを探す
+    if(next.second != 0 && seen[next.first] == -1){
+      // 辺の長さが偶数なら同じ色で塗る
+      if(next.second%2 == 0) dfs(next.first, color);
+      else dfs(next.first, (color+1)%2);
+    }
+  }
+}
+
 int main()
 {
+  cin >> n;
+  cnct.assign(n, vector<plint>(0));
+  REP(i,n-1){
+    lint x, y, edge;
+    cin >> x >> y >> edge;
+    x--;
+    y--;
+    cnct[x].push_back({y, edge});
+    cnct[y].push_back({x, edge});
+  }
+
+  seen.assign(n, -1);
+  dfs(0, 0);
+
+  REP(i,n) cout << seen[i] << "\n";
   return 0;
 }
