@@ -25,21 +25,22 @@ lint x;
 vector<vector<lint>> book;
 
 lint price(int index, vector<lint> now, lint& min_price){
-  //cout << min_price << "\n";
-  // 全理解度がxを越えていれば現在の合計金額を返す
-  if(*min(now.begin()+1, now.end()) >= x){
-    if(now[0] < min_price) min_price = now[0];
-    return min_price;
+  // 全理解度がxを越えていれば最少金額を更新
+  bool ok = true;
+  FOR(i,1,m+1) if(now[i] < x) ok = false;
+  if(ok){
+  //if(*min(now.begin()+1, now.end()) >= x){  // これWAの原因
+    min_price = min(now[0], min_price);
   }
 
-  // 全理解度がxを越えないまま探索を終える場合min_priceを返す
+  // 次の本を買う場合と買わない場合を探索
   index++;
-  if(index == n) return min_price;
-
-  // 次の本を買う場合と買わない場合を比べて安い方の金額を返す
-  vector<lint> next(m+1);
-  REP(i,m+1) next[i] = now[i] + book[index][i];
-  return min(price(index, now, min_price), price(index, next, min_price));
+  if(index != n){
+    price(index, now, min_price);
+    REP(i,m+1) now[i] += book[index][i];
+    price(index, now, min_price);
+  }
+  return min_price;
 }
 
 
@@ -50,22 +51,10 @@ int main()
   REP(i,n) REP(j,m+1) cin >> book[i][j];
 
   // 全部買ってもxに届かないものがあれば-1を出力する
-  lint min_price;
-  REP(i,m+1){
-    lint sum = 0;
-    REP(j,n) sum += book[j][i];
-    if(i == 0){
-      min_price = sum;
-      continue;
-    }
-    if(sum < x){
-      cout << "-1\n";
-      return 0;
-    }
-  }
+  lint min_price = 1200001;
   // 動的計画法（買うか買わないか）
   price(-1, vector<lint>(m+1, 0), min_price);
 
-  cout << min_price << "\n";
+  cout << (min_price != 1200001 ? min_price : -1) << "\n";
   return 0;
 }
